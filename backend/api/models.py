@@ -29,7 +29,7 @@ class User(models.Model):
         return self.Username
     
     @classmethod
-    def create_user(cls, username, password, firstname='Raju', lastname='Rastogi', email='example@email.com', image='NULL'):
+    def create_user(cls, username, password, firstname, lastname, email, image):
         if cls.objects.filter(Username=username).exists():
             raise ValidationError(f"A user with the username '{username}' already exists.")
 
@@ -39,7 +39,7 @@ class User(models.Model):
             Firstname=firstname,
             Lastname=lastname,
             Email=email,
-            Image=image or 'NULL'  # Use a default image if none is provided
+            Image=image
         )
 
         user.full_clean()
