@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {Avatar ,Grid ,Typography ,Container ,Box ,Button ,CssBaseline ,TextField ,FormControlLabel ,Checkbox} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -14,22 +14,53 @@ export default function SignIn() {
   const { navigateToProfile, navigateToSignUp } = useNavigations();
 
   const [Username, setUsername] = useState("");
+  const [usernames, setUsernames] = useState([]);
   const [Password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const route="/api/user/login/";
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return password.length >= 8 && passwordRegex.test(password);
+  };
+  //Fetch all usernames on component mount
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        const res = await api.get("/api/users/");
+        const usernames = res.data.map(user => user.Username);
+        setUsernames(usernames);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUsernames();
+  }, []);
 
   const handleSubmit = async (event) => {
-  setLoading(true);
     event.preventDefault();
+
+    // Validate password
+    if (!validatePassword(Password)) {
+      alert("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+      return;
+    }
+
+    // Validate username
+    if (!usernames.includes(Username)) {
+      alert(`User does not exists.`);
+      return;
+    }
+
+    setLoading(true);
     try {
-      const res = await api.post(route, { Username, Password });
+      const res = await api.post("/api/user/login/", { Username, Password });
       localStorage.setItem(ACCESS_TOKEN, res.data.access);
       localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
       navigateToProfile();
     } catch (error) {
       if (error.response) {
         alert(`Error: ${error.response.data.message}`);
-        console.log((route, { Username, Password }))
+        console.log(("/api/user/login/", { Username, Password }))
       } else {
         alert("An unexpected error occurred. Please try again.");
       }
