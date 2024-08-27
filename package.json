@@ -1,0 +1,11 @@
+{
+  "name": "bytequestass",
+  "version": "1.0.0",
+  "description": "Social Media Dashboard with React FrontEnd and Django Backend",
+  "main": "manage.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tushar Sharma",
+  "license": "MIT"
+}
