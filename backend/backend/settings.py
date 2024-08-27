@@ -1,9 +1,13 @@
+from dotenv import load_dotenv
+from datetime import timedelta
 from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-n*rrr_i==f79cf^&jxkpq=k3x=yg)_dhp8sci^@dz0q&91g25@'
+
+AUTH_USER_MODEL = 'api.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -15,6 +19,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',

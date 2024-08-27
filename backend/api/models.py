@@ -1,15 +1,31 @@
 from django.db import models
 from django.core.validators import RegexValidator, MinLengthValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.core.exceptions import ValidationError
+from django.utils import timezone
+from django.contrib.auth.hashers import make_password
 
-class User(models.Model):
-    Username = models.CharField(max_length=20)
+class CustomUserManager(BaseUserManager):
+    def create_user(self, username, password=None, **extra_fields):
+        if not username:
+            raise ValueError('The Username field must be set')
+        
+        user = self.model(Username=username, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
+    def create_superuser(self, username, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(username, password, **extra_fields)
+
+class User(AbstractBaseUser, PermissionsMixin):
+    Username = models.CharField(max_length=20, unique=True)
     Password = models.CharField(
-        max_length=20,
+        max_length=128,
         validators=[
-            MinLengthValidator(8),  # Minimum length of 8 characters
+            MinLengthValidator(8),
             RegexValidator(
                 regex=r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
                 message=(
@@ -23,34 +39,22 @@ class User(models.Model):
     Firstname = models.CharField(max_length=10, default='Raju')
     Lastname = models.CharField(max_length=10, default='Rastogi')
     Email = models.CharField(max_length=50, default='example@email.com')
-    Image =  models.TextField(default='NULL')
+    Image = models.TextField(default='NULL')
+
+    date_joined = models.DateTimeField(default=timezone.now)
+
+    # Additional fields for Django authentication
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'Username'
+    REQUIRED_FIELDS = ['Email', 'Firstname', 'Lastname']
 
     def __str__(self):
         return self.Username
-    
-    @classmethod
-    def create_user(cls, username, password, firstname, lastname, email, image):
-        if cls.objects.filter(Username=username).exists():
-            raise ValidationError(f"A user with the username '{username}' already exists.")
 
-        user = cls(
-            Username=username,
-            Password=password,
-            Firstname=firstname,
-            Lastname=lastname,
-            Email=email,
-            Image=image
-        )
-
-        user.full_clean()
-
-        user.save()
-
-        return user
-    
-    def check_password(self, raw_password):
-            return self.Password == raw_password
-    
 class Account(models.Model):
     ACCOUNT_TYPES = [
         ('IN', 'INSTAGRAM'),

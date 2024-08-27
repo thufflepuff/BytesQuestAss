@@ -5,11 +5,10 @@ from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
 #User register kaarne ke liye
 class UserSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = User
-        fields = ['id','Username', 'Password','Firstname','Lastname', 'Email', 'Image']
-        extra_kwargs = {"password": {"write_only": True}}
+        fields = ['id', 'Username', 'Password', 'Firstname', 'Lastname', 'Email', 'Image']
+        extra_kwargs = {"Password": {"write_only": True}}
 
     def create(self, validated_data):
         username = validated_data.get('Username')
@@ -19,18 +18,17 @@ class UserSerializer(serializers.ModelSerializer):
         email = validated_data.get('Email', 'example@email.com')
         image = validated_data.get('Image', 'NULL')
 
-        # Call the create_user method
-        user = User.create_user(
+        # Use the create_user method from the custom manager
+        user = User.objects.create_user(
             username=username,
             password=password,
-            firstname=firstname,
-            lastname=lastname,
-            email=email,
-            image=image
+            Firstname=firstname,
+            Lastname=lastname,
+            Email=email,
+            Image=image
         )
         return user
     
-#login ke liye
 class UserLoginSerializer(serializers.Serializer):
     Username = serializers.CharField()
     Password = serializers.CharField(write_only=True)
@@ -47,7 +45,7 @@ class UserLoginSerializer(serializers.Serializer):
         if not user.check_password(password):
             raise serializers.ValidationError("Incorrect password.")
 
-        # logic to return all fields
+        # Return all necessary fields after successful validation
         return {
             'id': user.id,
             'Username': user.Username,
@@ -56,7 +54,7 @@ class UserLoginSerializer(serializers.Serializer):
             'Email': user.Email,
             'Image': user.Image,
         }
-
+    
 #JWT token refresh bcz I don't like the default method i.e. I made a custom one
 class TokenRefreshSerializer(serializers.Serializer):
     refresh = serializers.CharField()

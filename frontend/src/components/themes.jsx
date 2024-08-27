@@ -5,22 +5,23 @@ export const SignInTheme = createTheme({
       MuiTextField: {
         styleOverrides: {
           root: {
+            marginBottom: '16px', 
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
-                borderColor: 'white', // Border color
+                borderColor: 'blue', // Border color
               },
               '&:hover fieldset': {
-                borderColor: 'white', // Border color on hover
+                borderColor: 'blue', // Border color on hover
               },
               '&.Mui-focused fieldset': {
-                borderColor: 'white', // Border color when focused
+                borderColor: 'blue', // Border color when focused
               },
             },
             '& .MuiInputLabel-root': {
               color: 'white', // Label color
             },
             '& .MuiInputBase-input': {
-              color: 'white', // Input text color
+              color: 'indigo', // Input text color
             },
           },
         },
@@ -37,7 +38,7 @@ export const SignInTheme = createTheme({
           root: {
             color: 'white', // Checkbox color
             '&.Mui-checked': {
-              color: 'white', // Checkbox color when checked
+              color: 'indigo', // Checkbox color when checked
             },
           },
         },
@@ -66,20 +67,20 @@ export const SignUpTheme = createTheme({
           root: {
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
-                borderColor: 'white',
+                borderColor: 'blue',
               },
               '&:hover fieldset': {
-                borderColor: 'white',
+                borderColor: 'blue',
               },
               '&.Mui-focused fieldset': {
-                borderColor: 'white',
+                borderColor: 'blue',
               },
             },
             '& .MuiInputLabel-root': {
               color: 'white',
             },
             '& .MuiInputBase-input': {
-              color: 'white',
+              color: 'indigo',
             },
           },
         },
@@ -104,14 +105,14 @@ export const SignUpTheme = createTheme({
       MuiLink: {
         styleOverrides: {
           root: {
-            color: 'white',
+            color: 'blue',
           },
         },
       },
       MuiTypography: {
         styleOverrides: {
           root: {
-            color: 'white',
+            color: 'blue',
           },
         },
       },

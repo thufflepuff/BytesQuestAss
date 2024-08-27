@@ -33,7 +33,7 @@ const router = createBrowserRouter(
       <Route path="SignUp" element={<SignUp />} />
       
       {/*ProtectedRoute*/}
-      <Route path="Dashboard" element={<Dashboard />} />
+      <Route path="Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       {/*ProtectedRoute*/}
 

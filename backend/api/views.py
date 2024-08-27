@@ -16,15 +16,6 @@ from rest_framework import status
 import base64
 # Create your views here.
 
-class TokenRefreshView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request, *args, **kwargs):
-        serializer = TokenRefreshSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
-
-
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -42,17 +33,16 @@ class CreateUserView(generics.CreateAPIView):
 class LoginUserView(generics.GenericAPIView):
     serializer_class = UserLoginSerializer
     permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = User.objects.get(Username=serializer.validated_data['Username'])
 
         # Generate tokens
-        print("chala toh i guess")
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
         refresh_token = str(refresh)
-        
 
         # Return user data along with tokens
         return Response({
@@ -62,20 +52,26 @@ class LoginUserView(generics.GenericAPIView):
                 'Firstname': user.Firstname,
                 'Lastname': user.Lastname,
                 'Email': user.Email,
-                'Image': user.Image,
+                'Image': user.Image,  # Assuming this is already in base64 format
             },
             'tokens': {
                 'access': access_token,
                 'refresh': refresh_token
             }
-        })
+        }, status=status.HTTP_200_OK)
+    
+class UserProfileView(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+    def get_object(self):
+        return self.request.user
 
 class UserList(ListAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        return User.objects.values('id','Username')
-    
+        return User.objects.values('id', 'Username')
+
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         return Response(queryset)
@@ -105,3 +101,11 @@ class AccountRemove(generics.DestroyAPIView):
 class AccountList(ListAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+
+class TokenRefreshView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = TokenRefreshSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)

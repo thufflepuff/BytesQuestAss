@@ -34,7 +34,7 @@ export default function StickyFooter() {
             py: 3,
             px: 2,
             mt: 'auto',
-            backgroundColor: '#444444',
+            backgroundColor: '#3F00FF',
           }}
         >
           <Container maxWidth="sm">

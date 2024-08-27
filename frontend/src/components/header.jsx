@@ -198,7 +198,7 @@ function NavBar() {
   );
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'white' }}>
+    <AppBar position="static" sx={{ backgroundColor: 'indigo' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* Left Drawer Button */}
@@ -229,7 +229,7 @@ function NavBar() {
           </Box>
 
           {/* Center: Title */}
-          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'left', color: '#0096FF' }}>
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'left', color: 'cream' }}>
             <Typography
               variant="h6"
               noWrap
