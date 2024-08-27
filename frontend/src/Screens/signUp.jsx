@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Avatar, Button, CssBaseline, TextField, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { ThemeProvider } from '@mui/material/styles';
@@ -11,7 +11,6 @@ export default function SignUp() {
   const [Firstname, setFirstname] = useState("");
   const [Lastname, setLastname] = useState("");
   const [Username, setUsername] = useState("");
-  const [usernames, setUsernames] = useState("");
   const [Password, setPassword] = useState("");
   const [Email, setEmail] = useState("");
   const [Image, setImage] = useState(null);
@@ -19,29 +18,6 @@ export default function SignUp() {
   const route = "/api/user/register/";
 
   const { navigateToSignIn } = useNavigations();
-
-  const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return password.length >= 8 && passwordRegex.test(password);
-  };
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-  //Fetch usernames
-  useEffect(() => {
-    const fetchUsernames = async () => {
-      try {
-        const res = await api.get("/api/users/");
-        const usernames = res.data.map(user => user.Username);
-        setUsernames(usernames);
-        console.log(usernames);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUsernames();
-  }, []);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -58,32 +34,6 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();
-
-    // Validations
-    const fields = { Firstname, Lastname, Username, Password, Email, Image };
-    const emptyField = Object.entries(fields).find(([key, value]) => !value);
-    if (emptyField) {
-      alert(`${emptyField[0]} cannot be empty`);
-      setLoading(false);
-      setLoading(false);
-      return;
-    }
-    if (!validatePassword(Password)) {
-      alert("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
-      setLoading(false);
-      return;
-    }
-    if (usernames.includes(Username)) {
-      alert(`Username already exists`);
-      setLoading(false);
-      return;
-    }
-    if (!validateEmail(Email)) {
-      alert("Invalid email format");
-      setLoading(false);
-      return;
-    }
-
     console.log({ Username, Password ,Firstname, Lastname, Email, Image})
     try {
       const res = await api.post(route, { Username, Password ,Firstname, Lastname, Email, Image});

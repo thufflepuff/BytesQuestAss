@@ -23,7 +23,7 @@ import Settings from './Screens/settings';
 import Posts from './Screens/posts'
 import NotFound from './Screens/notFound'
 
-//import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,7 +34,7 @@ const router = createBrowserRouter(
       
       {/*ProtectedRoute*/}
       <Route path="Dashboard" element={<Dashboard />} />
-      <Route path="Profile" element={<Profile />} />
+      <Route path="Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       {/*ProtectedRoute*/}
 
       {/* Other routes */}

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const apiUrl = `${process.env.REACT_APP_API_URL}/api/users`
+const apiUrl = `${process.env.REACT_APP_API_URL}/api/user`
 export default function Accounts () {
     const [users, setUsers] = useState([]);
   
@@ -23,7 +23,7 @@ export default function Accounts () {
       <ul>
         {users.map(user => (
           <li key={user.id}>
-            {user.Username}
+            {user.Username} - {user.Email}
           </li>
         ))}
       </ul>

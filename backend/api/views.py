@@ -71,15 +71,8 @@ class LoginUserView(generics.GenericAPIView):
         })
 
 class UserList(ListAPIView):
+    queryset = User.objects.all()
     serializer_class = UserSerializer
-
-    def get_queryset(self):
-        # Use `values_list` to return only the usernames
-        return User.objects.values('id','Username')
-    
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        return Response(queryset)
 
 class AccountAdd(generics.ListCreateAPIView):
     serializer_class = AccountSerializer

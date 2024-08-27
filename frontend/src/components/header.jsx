@@ -234,7 +234,7 @@ function NavBar() {
               variant="h6"
               noWrap
               component="a"
-              href="/"
+              href="/profile"
               sx={{
                 fontFamily: 'arial',
                 fontWeight: 700,
