@@ -29,6 +29,7 @@ export default function SignIn() {
         const res = await api.get("/api/users/");
         const usernames = res.data.map(user => user.Username);
         setUsernames(usernames);
+        console.log(usernames);
       } catch (error) {
         console.error(error);
       }
@@ -53,7 +54,7 @@ export default function SignIn() {
 
     setLoading(true);
     try {
-      const res = await api.post(route, { Username, Password });
+      const res = await api.post("/api/user/login/", { Username, Password });
       const accessToken = res.data.tokens.access;
       const refreshToken = res.data.tokens.refresh;
       //console.log(accessToken,refreshToken);
@@ -63,7 +64,6 @@ export default function SignIn() {
     } catch (error) {
       if (error.response) {
         alert(`Error: ${error.response.data.message}`);
-        console.log(("/api/user/login/", { Username, Password }))
       } else {
         alert("An unexpected error occurred. Please try again.");
       }

@@ -74,7 +74,6 @@ class UserList(ListAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        # Use `values_list` to return only the usernames
         return User.objects.values('id','Username')
     
     def list(self, request, *args, **kwargs):
