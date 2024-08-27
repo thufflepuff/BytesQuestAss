@@ -238,7 +238,7 @@ function NavBar() {
               sx={{
                 fontFamily: 'arial',
                 fontWeight: 700,
-                letterSpacing: '.3rem',
+                letterSpacing: '.2rem',
                 color: 'inherit',
                 textDecoration: 'none',
               }}
