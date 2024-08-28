@@ -35,7 +35,7 @@ export default function SignUp() {
         const res = await api.get("/api/users/");
         const usernames = res.data.map(user => user.Username);
         setUsernames(usernames);
-        console.log(usernames);
+        //console.log(usernames);
       } catch (error) {
         console.error(error);
       }
@@ -84,9 +84,9 @@ export default function SignUp() {
       return;
     }
 
-    console.log({ Username, Password ,Firstname, Lastname, Email, Image})
+    console.log({ Username, password: Password ,Firstname, Lastname, Email, Image})
     try {
-      const res = await api.post(route, { Username, Password ,Firstname, Lastname, Email, Image});
+      const res = await api.post(route, { Username, password: Password ,Firstname, Lastname, Email, Image});
       navigateToSignIn();
     } catch (error) {
       if (error.response) {

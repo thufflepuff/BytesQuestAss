@@ -22,6 +22,7 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     Username = models.CharField(max_length=20, unique=True)
+    '''
     Password = models.CharField(
         max_length=128,
         validators=[
@@ -36,6 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             )
         ]
     )
+    '''
     Firstname = models.CharField(max_length=10, default='Raju')
     Lastname = models.CharField(max_length=10, default='Rastogi')
     Email = models.CharField(max_length=50, default='example@email.com')

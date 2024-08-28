@@ -28,6 +28,7 @@ export default function SignIn() {
       try {
         const res = await api.get("/api/users/");
         const usernames = res.data.map(user => user.Username);
+        //console.log(usernames)
         setUsernames(usernames);
       } catch (error) {
         console.error(error);

@@ -7,12 +7,12 @@ from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'Username', 'Password', 'Firstname', 'Lastname', 'Email', 'Image']
+        fields = ['id', 'Username', 'password', 'Firstname', 'Lastname', 'Email', 'Image']
         extra_kwargs = {"Password": {"write_only": True}}
 
     def create(self, validated_data):
         username = validated_data.get('Username')
-        password = validated_data.get('Password')
+        password = validated_data.get('password')
         firstname = validated_data.get('Firstname', 'Raju')
         lastname = validated_data.get('Lastname', 'Rastogi')
         email = validated_data.get('Email', 'example@email.com')
@@ -78,3 +78,22 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         fields = ['id','owner','type' ]
         extra_kwargs = {"owner": {"read_only": True}}
+
+#abhi use nahi
+'''
+class UserDeleteSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField()
+
+    def validate(self, data):
+        try:
+            user = User.objects.get(id=data.get("user_id"))
+        except User.DoesNotExist:
+            raise serializers.ValidationError("User does not exist.")
+
+        return data
+
+    def delete(self):
+        user_id = self.validated_data.get("user_id")
+        user = User.objects.get(id=user_id)
+        user.delete()
+'''

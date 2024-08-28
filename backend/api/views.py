@@ -109,3 +109,25 @@ class TokenRefreshView(APIView):
         serializer = TokenRefreshSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+    
+#iska bhi abhi use nahi
+'''
+class UserDeleteView(generics.DestroyAPIView):
+    serializer_class = UserDeleteSerializer
+
+    def get_queryset(self):
+        # Retrieve all users
+        return User.objects.all()
+
+    def delete(self, request, *args, **kwargs):
+        user_id = self.kwargs.get("pk")
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=404)
+
+        # Optionally: Add additional validation or checks here
+
+        user.delete()
+        return Response({"detail": "User deleted successfully."})
+'''

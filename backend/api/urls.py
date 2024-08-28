@@ -6,6 +6,7 @@ urlpatterns = [
     path('user/', views.UserProfileView.as_view(), name="vaahiaad"),
     path('user/register/', views.CreateUserView.as_view(), name="register"),
     path('user/login/', views.LoginUserView.as_view(), name="login"),
+    #path('user/delete/<int:pk>/', views.UserDeleteView.as_view(), name='delete-user'),
 
     path('token/refresh/', views.TokenRefreshView.as_view(), name='token_refresh'),
 

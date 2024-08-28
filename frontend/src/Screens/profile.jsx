@@ -21,7 +21,7 @@ export default function Profile() {
     .then(response => {
       // Access user data directly from response.data
       setUserData(response.data);
-      console.log(response.data); // Check the data structure here
+      //console.log(response.data);
       setLoading(false);
     })
     .catch(err => {
