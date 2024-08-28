@@ -59,12 +59,6 @@ class LoginUserView(generics.GenericAPIView):
                 'refresh': refresh_token
             }
         }, status=status.HTTP_200_OK)
-    
-class UserProfileView(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserSerializer
-    def get_object(self):
-        return self.request.user
 
 class UserList(ListAPIView):
     serializer_class = UserSerializer
@@ -75,6 +69,12 @@ class UserList(ListAPIView):
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         return Response(queryset)
+    
+class UserProfileView(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+    def get_object(self):
+        return self.request.user
 
 class AccountAdd(generics.ListCreateAPIView):
     serializer_class = AccountSerializer
