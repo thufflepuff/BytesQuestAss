@@ -60,7 +60,7 @@ export default function SignIn() {
       //console.log(accessToken,refreshToken);
       localStorage.setItem(ACCESS_TOKEN, accessToken);
       localStorage.setItem(REFRESH_TOKEN, refreshToken);
-      navigateToProfile();
+      navigateToProfile(Username);
     } catch (error) {
       if (error.response) {
         alert(`Error: ${error.response.data.message}`);

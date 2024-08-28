@@ -84,7 +84,7 @@ export default function SignUp() {
       return;
     }
 
-    console.log({ Username, password: Password ,Firstname, Lastname, Email, Image})
+    //console.log({ Username, password: Password ,Firstname, Lastname, Email, Image})
     try {
       const res = await api.post(route, { Username, password: Password ,Firstname, Lastname, Email, Image});
       navigateToSignIn();

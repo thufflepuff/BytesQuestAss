@@ -1,9 +1,8 @@
 from django.db import models
-from django.core.validators import RegexValidator, MinLengthValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
-from django.contrib.auth.hashers import make_password
-
+#from django.contrib.auth.hashers import make_password
+#from django.core.validators import RegexValidator, MinLengthValidator
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         if not username:
@@ -27,8 +26,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=128,
         validators=[
             MinLengthValidator(8),
-            RegexValidator(
-                regex=r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+            RegexValidator( (p.s. remove the double slsh before d and make it single in case you use it again)
+                regex=r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$',
                 message=(
                     "Password must contain at least one uppercase letter, "
                     "one lowercase letter, one number, and one special character."

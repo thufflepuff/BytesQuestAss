@@ -1,11 +1,10 @@
-// useNavigationActions.js
 import { useNavigate } from 'react-router-dom';
 
 const useNavigations = () => {
   const navigate = useNavigate();
 
   return {
-    navigateToProfile: () => navigate('/Profile'),
+    navigateToProfile: (username) => navigate(`/${username}/Profile`),
     navigateToDashboard: () => navigate('/Dashboard'),
     navigateToSettings: () => navigate('/Settings'),
     navigateToSignIn: () => {

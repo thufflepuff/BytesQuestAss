@@ -8,6 +8,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.exceptions import PermissionDenied
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -25,8 +26,6 @@ class CreateUserView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
-        # Return a simple message indicating successful registration
         return Response({"message": "User has been registered"}, status=201)
 
 
@@ -74,7 +73,12 @@ class UserProfileView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
     def get_object(self):
-        return self.request.user
+        username = self.kwargs.get('username')
+        user = self.request.user
+        if user.Username != username:
+            raise PermissionDenied("You do not have permission to access this profile.")
+        else:
+            return self.request.user
 
 class AccountAdd(generics.ListCreateAPIView):
     serializer_class = AccountSerializer

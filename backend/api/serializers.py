@@ -36,7 +36,6 @@ class UserLoginSerializer(serializers.Serializer):
     def validate(self, data):
         username = data.get("Username")
         password = data.get("Password")
-
         try:
             user = User.objects.get(Username=username)
         except User.DoesNotExist:
@@ -45,7 +44,7 @@ class UserLoginSerializer(serializers.Serializer):
         if not user.check_password(password):
             raise serializers.ValidationError("Incorrect password.")
 
-        # Return all necessary fields after successful validation
+        # Return all necessary sfields after successful validation
         return {
             'id': user.id,
             'Username': user.Username,

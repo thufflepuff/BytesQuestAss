@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import api from '../api';
 import { ACCESS_TOKEN } from '../constants';
 
 export default function Profile() {
+  const { username } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +19,7 @@ export default function Profile() {
     }
 
     // Fetch user data
-    api.get("/api/user/")
+    api.get(`/api/user/${username}/`)
     .then(response => {
       // Access user data directly from response.data
       setUserData(response.data);

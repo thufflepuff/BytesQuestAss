@@ -34,7 +34,7 @@ const router = createBrowserRouter(
       
       {/*ProtectedRoute*/}
       <Route path="Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      <Route path="Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path=":username/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       {/*ProtectedRoute*/}
 
       {/* Other routes */}
