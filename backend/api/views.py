@@ -80,13 +80,23 @@ class UserProfileView(generics.RetrieveAPIView):
         else:
             return self.request.user
 
+class AccountListAll(ListAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
+    
+class AccountList(ListAPIView):
+    serializer_class = AccountSerializer
+    def get_object(self):
+        user = self.request.user
+        queryset = Account.objects.get(owner=user.username)
+
 class AccountAdd(generics.ListCreateAPIView):
     serializer_class = AccountSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
-        return Account.objects.filter(owner=user.id)
+        return Account.objects.filter(owner=user.username)
     
     def add_account(self, serializer):
         if serializer.is_valid():
@@ -102,17 +112,6 @@ class AccountRemove(generics.DestroyAPIView):
         user = self.request.user
         return Account.objects.filter(author=user)
 
-class AccountList(ListAPIView):
-    queryset = Account.objects.all()
-    serializer_class = AccountSerializer
-
-class TokenRefreshView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request, *args, **kwargs):
-        serializer = TokenRefreshSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
     
 #iska bhi abhi use nahi
 '''
@@ -135,3 +134,11 @@ class UserDeleteView(generics.DestroyAPIView):
         user.delete()
         return Response({"detail": "User deleted successfully."})
 '''
+
+class TokenRefreshView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = TokenRefreshSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)

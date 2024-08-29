@@ -33,7 +33,7 @@ const router = createBrowserRouter(
       <Route path="SignUp" element={<SignUp />} />
       
       {/*ProtectedRoute*/}
-      <Route path="Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      
       <Route path=":username/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       {/*ProtectedRoute*/}
 
@@ -41,6 +41,7 @@ const router = createBrowserRouter(
       <Route path="Accounts" element={<Accounts />} />
       <Route path="Posts" element={<Posts />} />
       <Route path="Messages" element={<Messages />} />
+      <Route path="Dashboard" element={<Dashboard />} />
 
       <Route path="Settings" element={<Settings />} />
       {/* Catch-all route for undefined paths */}

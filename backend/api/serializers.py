@@ -54,22 +54,6 @@ class UserLoginSerializer(serializers.Serializer):
             'Image': user.Image,
         }
     
-#JWT token refresh bcz I don't like the default method i.e. I made a custom one
-class TokenRefreshSerializer(serializers.Serializer):
-    refresh = serializers.CharField()
-
-    def validate(self, attrs):
-        refresh_token = attrs.get('refresh')
-        try:
-            refresh = RefreshToken(refresh_token)
-            # Create a new access token
-            access_token = str(refresh.access_token)
-        except TokenError:
-            raise serializers.ValidationError("Invalid or expired refresh token")
-        
-        return {
-            'access': access_token,
-        }
 
 #to add acounts, will add API stuff to make it more usable
 class AccountSerializer(serializers.ModelSerializer):
@@ -77,6 +61,8 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         fields = ['id','owner','type' ]
         extra_kwargs = {"owner": {"read_only": True}}
+
+
 
 #abhi use nahi
 '''
@@ -96,3 +82,21 @@ class UserDeleteSerializer(serializers.Serializer):
         user = User.objects.get(id=user_id)
         user.delete()
 '''
+
+
+#JWT token refresh bcz I don't like the default method i.e. I made a custom one
+class TokenRefreshSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+
+    def validate(self, attrs):
+        refresh_token = attrs.get('refresh')
+        try:
+            refresh = RefreshToken(refresh_token)
+            # Create a new access token
+            access_token = str(refresh.access_token)
+        except TokenError:
+            raise serializers.ValidationError("Invalid or expired refresh token")
+        
+        return {
+            'access': access_token,
+        }

@@ -37,24 +37,10 @@ const accounts = [
       { name: 'Messages', link: '/Account1/Messages', icon: messagesIcon },
     ],
   },
-  {
-    name: 'Account2',
-    pages: [
-      { name: 'Posts', link: '/Account2/Posts', icon: postIcon },
-      { name: 'Messages', link: '/Account2/Messages', icon: messagesIcon },
-    ],
-  },
-  {
-    name: 'Account3',
-    pages: [
-      { name: 'Posts', link: '/Account3/Posts', icon: postIcon },
-      { name: 'Messages', link: '/Account3/Messages', icon: messagesIcon },
-    ],
-  },
 ];
 
 function NavBar() {
-  const { navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn, navigateToSignUp } = useNavigations();
+  const { navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn } = useNavigations();
 
 //Buttons in the left drawers
   const pages = [
@@ -234,7 +220,7 @@ function NavBar() {
               variant="h6"
               noWrap
               component="a"
-              href="/profile"
+              onClick={navigateToProfile}
               sx={{
                 fontFamily: 'arial',
                 fontWeight: 700,
