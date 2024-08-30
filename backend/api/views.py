@@ -15,8 +15,8 @@ from rest_framework.response import Response
 from rest_framework import status
 
 import base64
-# Create your views here.
 
+# VIEWS FOR USERS
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -75,15 +75,18 @@ class UserProfileView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
+# VIEWS FOR ACCOUNTS
+
 class AccountListAll(ListAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     
-class AccountList(ListAPIView):
+class AccountList(generics.ListAPIView):
     serializer_class = AccountSerializer
-    def get_object(self):
-        user = self.request.user
-        queryset = Account.objects.get(owner=user.username)
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        return Account.objects.filter(owner_id=user_id)
 
 class AccountAdd(generics.ListCreateAPIView):
     serializer_class = AccountSerializer
