@@ -11,9 +11,9 @@ export default function Accounts () {
     const fetchAccountsAll = async () => {
       try {
         const res = await api.get("/api/accounts/");
-        const Accounts = res.data.map(account => account.owner);
+        const Accounts = res.data.map(account => account);
         setAccounts(Accounts);
-        //console.log(usernames);
+        //console.log(accounts);
       } catch (error) {
         console.error("there was an error fetching user list",error);
       }
@@ -27,7 +27,7 @@ export default function Accounts () {
       <ul>
         {accounts.map(account => (
           <li key={account.id}>
-            {account.owner}
+            {account.owner} 
             {account.type}
           </li>
         ))}

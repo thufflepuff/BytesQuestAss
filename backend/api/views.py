@@ -99,6 +99,14 @@ class AccountAdd(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class AccountView(generics.RetrieveAPIView):
+    serializer_class = AccountSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Account.objects.filter(owner=user)
+
 class AccountRemove(generics.DestroyAPIView):
     serializer_class = AccountSerializer
     permission_classes = [IsAuthenticated]
