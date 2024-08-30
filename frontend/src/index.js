@@ -12,16 +12,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 //Screens for routers
-import Dashboard from './Screens/dashboard';
-import SignIn from './Screens/signIn'
-import SignUp from './Screens/signUp'
-import Accounts from './Screens/accounts'
-import Messages from './Screens/messages'
-import Profile from './Screens/profile'
-import Settings from './Screens/settings';
-import Posts from './Screens/posts'
-import NotFound from './Screens/notFound'
+import SignIn from './Screens/signIn';
+import SignUp from './Screens/signUp';
 
+import Dashboard from './Screens/dashboard';
+import Profile from './Screens/profile';
+import Accounts from './Screens/accounts';
+
+import Posts from './Screens/posts';
+import Messages from './Screens/messages';
+
+import Settings from './Screens/settings';
+
+import NotFound from './Screens/notFound';
 //to add contexts to stuff
 import { ActiveUserProvider } from './components/contexts/userContext';
 
@@ -38,13 +41,13 @@ const router = createBrowserRouter(
       {/*ProtectedRoute*/}
       
       <Route path=":username/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path=":username/Accounts" element={<ProtectedRoute><Accounts /></ProtectedRoute>} />      
+      <Route path=":username/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       {/*ProtectedRoute*/}
 
       {/* Other routes */}
-      <Route path="Accounts" element={<Accounts />} />
       <Route path="Posts" element={<Posts />} />
       <Route path="Messages" element={<Messages />} />
-      <Route path="Dashboard" element={<Dashboard />} />
 
       <Route path="Settings" element={<Settings />} />
       {/* Catch-all route for undefined paths */}

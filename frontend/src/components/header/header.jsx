@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useContext } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Container, Avatar } from '@mui/material';
 
-
 import useNavigations from '../navigations';
 
 import { UserContext } from '../contexts/userContext';
@@ -10,7 +9,7 @@ import LeftDrawer from './leftDrawer';
 
 function NavBar() {
   const { userData } = useContext(UserContext);
-  const { navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn  } = useNavigations();
+  const { navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn, navigateToAccounts  } = useNavigations();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const isLoggedIn = !!userData;
 
@@ -57,6 +56,7 @@ function NavBar() {
               navigateToDashboard={navigateToDashboard}
               navigateToSettings={navigateToSettings}
               navigateToSignIn={navigateToSignIn}
+              navigateToAccounts={navigateToAccounts}
             />
               </>
             )}

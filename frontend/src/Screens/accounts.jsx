@@ -10,7 +10,7 @@ export default function Accounts () {
   useEffect(() => {
     const fetchAccountsAll = async () => {
       try {
-        const res = await api.get("/api/account/");
+        const res = await api.get("/api/accounts/");
         const Accounts = res.data.map(account => account.owner);
         setAccounts(Accounts);
         //console.log(usernames);

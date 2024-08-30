@@ -1,42 +1,13 @@
-import React, { useState } from 'react';
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Collapse, Avatar, Divider, Drawer } from '@mui/material';
-import { Link } from 'react-router-dom';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import React from 'react';
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Drawer } from '@mui/material';
 
 import dashboardIcon from '../../pictures/dashboard.png';
-import postIcon from '../../pictures/post.png';
-import messagesIcon from '../../pictures/messages.png';
 import profileIcon from '../../pictures/profile.png';
-import addIcon from '../../pictures/add.png';
 import settingIcon from '../../pictures/setting.png';
 import signoutIcon from '../../pictures/signout.png';
+import AccountDropdown from './accountDropdown';
 
-const accounts = [
-  {
-    name: 'Account1',
-    pages: [
-      { name: 'Posts', link: '/Account1/Posts', icon: postIcon },
-      { name: 'Messages', link: '/Account1/Messages', icon: messagesIcon },
-    ],
-  },
-];
-
-function LeftDrawer({ drawerOpen, toggleDrawer, navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn }) {
-  const [accountsOpen, setAccountsOpen] = useState(false);
-  const [accountDropdownOpen, setAccountDropdownOpen] = useState({});
-
-  const toggleAccounts = () => {
-    setAccountsOpen(!accountsOpen);
-  };
-
-  const toggleAccountDropdown = (account) => () => {
-    setAccountDropdownOpen((prevState) => ({
-      ...prevState,
-      [account]: !prevState[account],
-    }));
-  };
-
+function LeftDrawer({ drawerOpen, toggleDrawer, navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn, navigateToAccounts }) {
   const pages = [
     { name: 'Profile', action: navigateToProfile, icon: profileIcon },
     { name: 'Dashboard', action: navigateToDashboard, icon: dashboardIcon },
@@ -61,57 +32,7 @@ function LeftDrawer({ drawerOpen, toggleDrawer, navigateToProfile, navigateToDas
           </React.Fragment>
         ))}
         <Divider sx={{ bgcolor: 'white' }} />
-        <ListItemButton onClick={toggleAccounts} sx={{ pl: 4 }}>
-          <ListItemIcon>
-            <img src={addIcon} alt="Accounts icon" style={{ width: 24, height: 24 }} />
-          </ListItemIcon>
-          <ListItemText primary="Accounts" />
-          {accountsOpen ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={accountsOpen} timeout="auto" unmountOnExit>
-          <List component="div">
-            {accounts.map((account, accountIndex) => (
-              <React.Fragment key={account.name}>
-                <ListItemButton onClick={toggleAccountDropdown(account.name)} sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <Avatar sx={{ width: 24, height: 24 }}>
-                      {account.name.charAt(account.name.length - 1)}
-                    </Avatar>
-                  </ListItemIcon>
-                  <ListItemText primary={account.name} />
-                  {accountDropdownOpen[account.name] ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-                <Collapse in={accountDropdownOpen[account.name]} timeout="auto" unmountOnExit>
-                  <List component="div">
-                    {account.pages.map((page, pageIndex) => (
-                      <React.Fragment key={page.name}>
-                        <ListItem>
-                          <ListItemButton component={Link} to={page.link} sx={{ pl: 8 }}>
-                            <ListItemIcon>
-                              <img src={page.icon} alt={`${page.name} icon`} style={{ width: 24, height: 24 }} />
-                            </ListItemIcon>
-                            <ListItemText primary={page.name} />
-                          </ListItemButton>
-                        </ListItem>
-                        {pageIndex < account.pages.length - 1 && <Divider sx={{ bgcolor: 'white' }} />}
-                      </React.Fragment>
-                    ))}
-                  </List>
-                </Collapse>
-                {accountIndex < accounts.length - 1 && <Divider sx={{ bgcolor: 'white' }} />}
-              </React.Fragment>
-            ))}
-            <Divider sx={{ bgcolor: 'white' }} />
-            <ListItem key="Add another account">
-              <ListItemButton component={Link} to="/Accounts" sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <img src={addIcon} alt="Add another account icon" style={{ width: 24, height: 24 }} />
-                </ListItemIcon>
-                <ListItemText primary="Add another account" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Collapse>
+        <AccountDropdown />
       </List>
     </Box>
   );
@@ -129,7 +50,7 @@ function LeftDrawer({ drawerOpen, toggleDrawer, navigateToProfile, navigateToDas
         },
       }}
     >
-      {drawerList()}
+      {drawerList(navigateToAccounts={navigateToAccounts})}
     </Drawer>
   );
 }

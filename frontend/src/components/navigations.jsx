@@ -1,20 +1,45 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from './contexts/userContext';
 
 const useNavigations = () => {
   const navigate = useNavigate();
+  const { userData } = useContext(UserContext);
+  if(!!userData){
+    const username = userData.Username
+    return {
+      navigateToSignIn: () => {
+        navigate('/');
+        localStorage.clear();
+      },
+      navigateToSignUp: () => {
+        navigate('/SignUp');
+      },
+      navigateToSettings: () => navigate('/Settings'),
 
-  return {
-    navigateToProfile: (username) => navigate(`/${username}/Profile`),
-    navigateToDashboard: () => navigate('/Dashboard'),
-    navigateToSettings: () => navigate('/Settings'),
-    navigateToSignIn: () => {
-      navigate('/');
-      localStorage.clear();
-    },
-    navigateToSignUp: () => {
-      navigate('/SignUp');
-    }
-  };
+      navigateToProfile: () => navigate(`/${username}/Profile`),
+      navigateToDashboard: () => navigate(`/${username}/Dashboard`),
+      navigateToAccounts: () => navigate(`/${username}/Accounts`),
+
+    };
+  }
+  else {
+    return {
+      navigateToSignIn: () => {
+        navigate('/');
+        localStorage.clear();
+      },
+      navigateToSignUp: () => {
+        navigate('/SignUp');
+      },
+      navigateToSettings: () => navigate('/Settings'),
+
+      navigateToProfile: () => navigate(`/abc/Profile`),
+      navigateToDashboard: () => navigate(`/abc/Dashboard`),
+      navigateToAccounts: () => navigate(`/abc/Accounts`),
+
+    };
+  }
 };
 
 export default useNavigations;
