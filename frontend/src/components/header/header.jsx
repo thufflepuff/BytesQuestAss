@@ -18,15 +18,15 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Divider from '@mui/material/Divider';
 
-import dashboardIcon from '../pictures/dashboard.png';
-import postIcon from '../pictures/post.png';
-import messagesIcon from '../pictures/messages.png';
-import profileIcon from '../pictures/profile.png';
-import addIcon from '../pictures/add.png';
-import settingIcon from '../pictures/setting.png';
-import signoutIcon from '../pictures/signout.png';
+import dashboardIcon from '../../pictures/dashboard.png';
+import postIcon from '../../pictures/post.png';
+import messagesIcon from '../../pictures/messages.png';
+import profileIcon from '../../pictures/profile.png';
+import addIcon from '../../pictures/add.png';
+import settingIcon from '../../pictures/setting.png';
+import signoutIcon from '../../pictures/signout.png';
 
-import useNavigations from './navigations';
+import useNavigations from '../navigations';
 
 
 const accounts = [

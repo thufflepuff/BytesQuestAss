@@ -22,6 +22,10 @@ import Settings from './Screens/settings';
 import Posts from './Screens/posts'
 import NotFound from './Screens/notFound'
 
+//to add contexts to stuff
+import { ActiveUserProvider } from './components/contexts/userContext';
+
+//to provide arotected access to some stuff
 import ProtectedRoute from './components/ProtectedRoute';
 
 const router = createBrowserRouter(
@@ -52,7 +56,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <ActiveUserProvider>
     <RouterProvider router={router} />
+    </ActiveUserProvider>
   </React.StrictMode>
 );
 

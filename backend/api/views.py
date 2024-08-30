@@ -73,12 +73,7 @@ class UserProfileView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
     def get_object(self):
-        username = self.kwargs.get('username')
-        user = self.request.user
-        if user.Username != username:
-            raise PermissionDenied("You do not have permission to access this profile.")
-        else:
-            return self.request.user
+        return self.request.user
 
 class AccountListAll(ListAPIView):
     queryset = Account.objects.all()
