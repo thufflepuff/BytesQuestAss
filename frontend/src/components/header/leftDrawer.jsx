@@ -7,7 +7,7 @@ import settingIcon from '../../pictures/setting.png';
 import signoutIcon from '../../pictures/signout.png';
 import AccountDropdown from './accountDropdown';
 
-function LeftDrawer({ drawerOpen, toggleDrawer, navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn, navigateToAccounts }) {
+function LeftDrawer({ drawerOpen, toggleDrawer, navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn }) {
   const pages = [
     { name: 'Profile', action: navigateToProfile, icon: profileIcon },
     { name: 'Dashboard', action: navigateToDashboard, icon: dashboardIcon },
@@ -50,7 +50,7 @@ function LeftDrawer({ drawerOpen, toggleDrawer, navigateToProfile, navigateToDas
         },
       }}
     >
-      {drawerList(navigateToAccounts={navigateToAccounts})}
+      {drawerList()}
     </Drawer>
   );
 }

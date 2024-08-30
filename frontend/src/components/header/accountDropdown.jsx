@@ -8,6 +8,8 @@ import postIcon from '../../pictures/post.png';
 import messagesIcon from '../../pictures/messages.png';
 import addIcon from '../../pictures/add.png';
 
+import useNavigations from '../navigations';
+
 const accounts = [
     {
       name: 'Account1',
@@ -19,8 +21,9 @@ const accounts = [
   ];
   
 
-const AccountDropdown = ({navigateToAccounts}) => {
+const AccountDropdown = () => {
   const [accountDropdownOpen, setAccountDropdownOpen] = useState({});
+  const { navigateToAccounts } = useNavigations();
 
   const toggleAccountDropdown = (account) => () => {
     setAccountDropdownOpen((prevState) => ({

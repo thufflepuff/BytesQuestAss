@@ -9,7 +9,7 @@ import LeftDrawer from './leftDrawer';
 
 function NavBar() {
   const { userData } = useContext(UserContext);
-  const { navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn, navigateToAccounts  } = useNavigations();
+  const { navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn } = useNavigations();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const isLoggedIn = !!userData;
 
@@ -56,7 +56,6 @@ function NavBar() {
               navigateToDashboard={navigateToDashboard}
               navigateToSettings={navigateToSettings}
               navigateToSignIn={navigateToSignIn}
-              navigateToAccounts={navigateToAccounts}
             />
               </>
             )}
