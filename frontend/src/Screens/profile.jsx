@@ -1,8 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../components/contexts/userContext';
+import { ACCESS_TOKEN } from "../constants";
 
 export default function Profile() {
   const { userData, loading, error } = useContext(UserContext);
+
+  useEffect(() => {
+  const reloadFlag = localStorage.getItem('reloadFlag') === 'true';
+   if (ACCESS_TOKEN  && reloadFlag) {
+      window.location.reload();
+      localStorage.removeItem('reloadFlag');
+    }
+  }, []);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;

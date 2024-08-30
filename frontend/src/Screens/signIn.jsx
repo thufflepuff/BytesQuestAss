@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import {Avatar ,Grid ,Typography ,Container ,Box ,Button ,CssBaseline ,TextField ,FormControlLabel ,Checkbox} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -9,6 +9,7 @@ import { SignInTheme } from '../components/themes';
 import useNavigations from '../components/navigations';
 import api from '../api';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import { UserContext } from '../components/contexts/userContext';
 
 export default function SignIn() {
   const { navigateToProfile, navigateToSignUp } = useNavigations();
@@ -18,6 +19,7 @@ export default function SignIn() {
   const [Password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { userData } = useContext(UserContext);
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return password.length >= 8 && passwordRegex.test(password);
@@ -71,7 +73,12 @@ export default function SignIn() {
       setLoading(false);
     }
   };
-
+  useEffect(() => {
+    if (userData) {
+      window.location.reload();
+    }
+  }, []);
+  localStorage.setItem('reloadFlag', 'true');
 
   return (
     <ThemeProvider theme={SignInTheme}>
