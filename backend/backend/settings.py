@@ -1,7 +1,8 @@
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from datetime import timedelta
 from pathlib import Path
 import os
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,8 +21,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=10),
 }
 
 INSTALLED_APPS = [
@@ -101,6 +102,10 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+INSTAGRAM_CLIENT_ID = config('INSTAGRAM_CLIENT_ID')
+INSTAGRAM_CLIENT_SECRET = config('INSTAGRAM_CLIENT_SECRET')
+INSTAGRAM_REDIRECT_URI = config('INSTAGRAM_REDIRECT_URI')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

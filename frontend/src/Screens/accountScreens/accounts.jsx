@@ -10,7 +10,7 @@ export default function Accounts() {
 
   const [Type, setType] = useState(''); // Initialize with an empty string
   const [Loading, setLoading] = useState(false); // Initialize with false
-
+  const loginUrl = process.env.REACT_APP_API_URL
   const handleChange = (event) => {
     setType(event.target.value);
   };
@@ -20,7 +20,14 @@ export default function Accounts() {
     setLoading(true);
     try {
       const res = await api.post("/api/user/account/add", { type: Type });
-      window.location.reload();
+      //window.location.reload();
+      switch (Type) {
+        case 'IN':
+          window.location.href = `${loginUrl}/insta/instagram/login/`;
+          break;
+        default:
+          console.log("kuch toh gadbad hai daya")
+      }
       // Handle success (e.g., update accounts list, show a success message, etc.)
     } catch (error) {
       if (error.response) {

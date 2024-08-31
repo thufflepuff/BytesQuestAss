@@ -9,8 +9,6 @@ import LinkedIcon from '../../pictures/LI.png';
 import RedditIcon from '../../pictures/RE.png';
 import XIcon from '../../pictures/X.png';
 
-import useNavigations from '../navigations';
-
 export const fetchAccounts = async ( navigateToDashboard, navigateToMessages, navigateToPost ) => {
   try {
     const res = await api.get(`/api/user/accounts/`);

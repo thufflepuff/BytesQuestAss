@@ -76,7 +76,6 @@ class UserProfileView(generics.RetrieveAPIView):
         return self.request.user
 
 # VIEWS FOR ACCOUNTS
-
 class AccountListAll(ListAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
