@@ -20,8 +20,9 @@ const useNavigations = () => {
       navigateToProfile: () => navigate(`/${username}/Profile`),
       navigateToAccounts: () => navigate(`/${username}/Accounts`),
       
-      navigateToDashboard: () => navigate(`/${username}/Dashboard`),
-
+      navigateToDashboard: (type) => navigate(`/${username}/${type}/Dashboard`),
+      navigateToPosts: (type) => navigate(`/${username}/${type}/Messages`),
+      navigateToMessages: (type) => navigate(`/${username}/${type}/Posts`),      
     };
   }
   else {

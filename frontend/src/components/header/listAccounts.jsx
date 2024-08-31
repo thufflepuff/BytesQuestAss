@@ -1,4 +1,3 @@
-// fetchAccounts
 import api from '../../api';
 import dashIcon from '../../pictures/dashboard.png';
 import postIcon from '../../pictures/post.png';
@@ -10,11 +9,12 @@ import LinkedIcon from '../../pictures/LI.png';
 import RedditIcon from '../../pictures/RE.png';
 import XIcon from '../../pictures/X.png';
 
-export const fetchAccounts = async () => {
+import useNavigations from '../navigations';
+
+export const fetchAccounts = async ( navigateToDashboard, navigateToMessages, navigateToPost ) => {
   try {
     const res = await api.get(`/api/user/accounts/`);
     const accountsData = res.data;
-
     // Manually add pages and set icons for each account
     const accountsWithPages = accountsData.map((account) => {
       let accountName, accountIcon;
@@ -36,7 +36,7 @@ export const fetchAccounts = async () => {
         case 'TW':
           accountName = 'X';
           accountIcon = XIcon;
-            break;
+          break;
         default:
           accountName = 'Unknown';
           accountIcon = addIcon;
@@ -47,9 +47,9 @@ export const fetchAccounts = async () => {
         name: accountName,
         icon: accountIcon,
         pages: [
-          { name: 'Dashboard', link: `/${account.type}/Dashboard`, icon: dashIcon },
-          { name: 'Posts', link: `/${account.type}/Posts`, icon: postIcon },
-          { name: 'Messages', link: `/${account.type}/Messages`, icon: messagesIcon },
+          { name: 'Dashboard', action: () => navigateToDashboard(account.type), icon: dashIcon },
+          { name: 'Posts', action: () => navigateToPost(account.type), icon: postIcon },
+          { name: 'Messages', action: () => navigateToMessages(account.type), icon: messagesIcon },
         ],
       };
     });

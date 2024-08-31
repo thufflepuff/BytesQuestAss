@@ -3,7 +3,6 @@ import addIcon from '../../pictures/add.png'
 
 import React, { useState, useEffect } from 'react';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Collapse, Avatar, Divider } from '@mui/material';
-import { Link } from 'react-router-dom';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
@@ -15,12 +14,12 @@ import { fetchAccounts } from './listAccounts';
 const AccountDropdown = () => {
   const [accountDropdownOpen, setAccountDropdownOpen] = useState({});
   const [accounts, setAccounts] = useState([]);
-  const { navigateToAccounts } = useNavigations();
+  const { navigateToDashboard, navigateToPosts, navigateToMessages, navigateToAccounts } = useNavigations();
 
   useEffect(() => {
     const loadAccounts = async () => {
       try {
-        const accountsData = await fetchAccounts();
+        const accountsData = await fetchAccounts(navigateToDashboard, navigateToPosts, navigateToMessages);
         setAccounts(accountsData);
       } catch (error) {
         console.error("Error loading accounts:", error);
@@ -61,12 +60,12 @@ const AccountDropdown = () => {
                   {account.pages.map((page, pageIndex) => (
                     <React.Fragment key={page.name}>
                       <ListItem>
-                        <ListItemButton component={Link} to={page.link} sx={{ pl: 8 }}>
+                        <ListItemButton onClick={page.action} sx={{ pl: 8 }}>
                           <ListItemIcon>
                             <img src={page.icon} alt={`${page.name} icon`} style={{ width: 24, height: 24 }} />
                           </ListItemIcon>
                           <ListItemText primary={page.name} />
-                        </ListItemButton>
+                        </ListItemButton>             
                       </ListItem>
                       {pageIndex < account.pages.length - 1 && <Divider sx={{ bgcolor: 'white' }} />}
                     </React.Fragment>

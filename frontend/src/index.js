@@ -41,10 +41,11 @@ const router = createBrowserRouter(
       {/*ProtectedRoute*/}
       
       <Route path=":username/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      <Route path=":username/Accounts" element={<ProtectedRoute><Accounts /></ProtectedRoute>} />      
-      <Route path=":username/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      <Route path=":username/Posts" element={<Posts />} />
-      <Route path=":username/Messages" element={<Messages />} />
+      <Route path=":username/Accounts" element={<ProtectedRoute><Accounts /></ProtectedRoute>} />   
+         
+      <Route path=":username/:type/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path=":username/:type/Posts" element={<Posts />} />
+      <Route path=":username/:type/Messages" element={<Messages />} />
 
       {/*ProtectedRoute*/}
 
