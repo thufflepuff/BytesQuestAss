@@ -83,18 +83,19 @@ class AccountListAll(ListAPIView):
     
 class AccountList(generics.ListAPIView):
     serializer_class = AccountSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        user_id = self.kwargs.get('user_id')
-        return Account.objects.filter(owner_id=user_id)
+        user = self.request.user
+        return Account.objects.filter(owner=user)
 
 class AccountAdd(generics.ListCreateAPIView):
     serializer_class = AccountSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        user_id = self.kwargs.get('user_id')
-        return Account.objects.filter(owner_id=user_id)
+        user = self.request.user
+        return Account.objects.filter(owner=user)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

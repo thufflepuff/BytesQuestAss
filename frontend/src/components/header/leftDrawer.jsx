@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Drawer } from '@mui/material';
 
-import dashboardIcon from '../../pictures/dashboard.png';
 import profileIcon from '../../pictures/profile.png';
 import settingIcon from '../../pictures/setting.png';
 import signoutIcon from '../../pictures/signout.png';
@@ -10,7 +9,6 @@ import AccountDropdown from './accountDropdown';
 function LeftDrawer({ drawerOpen, toggleDrawer, navigateToProfile, navigateToDashboard, navigateToSettings, navigateToSignIn }) {
   const pages = [
     { name: 'Profile', action: navigateToProfile, icon: profileIcon },
-    { name: 'Dashboard', action: navigateToDashboard, icon: dashboardIcon },
     { name: 'Settings', action: navigateToSettings, icon: settingIcon },
     { name: 'Signout', action: navigateToSignIn, icon: signoutIcon },
   ];

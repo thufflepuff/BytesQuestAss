@@ -9,10 +9,10 @@ urlpatterns = [
     #path('user/delete/<int:pk>/', views.UserDeleteView.as_view(), name='delete-user'),
 
     path('accounts/', views.AccountListAll.as_view()),
-    path('user/<str:username>/accounts/', views.AccountList.as_view()),
-    path('user/<str:username>/account/add', views.AccountAdd.as_view(), name="add"),
-    path('user/<str:username>/account/<int:pk>/', views.AccountView.as_view(), name="account-detail"),
-    path('user/<str:username>/account/delete/<int:pk>/', views.AccountRemove.as_view(), name="delete"),
+    path('user/accounts/', views.AccountList.as_view()),
+    path('user/account/add', views.AccountAdd.as_view(), name="add"),
+    path('user/account/<int:pk>/', views.AccountView.as_view(), name="account-detail"),
+    path('user/account/delete/<int:pk>/', views.AccountRemove.as_view(), name="delete"),
 
     path('token/refresh/', views.TokenRefreshView.as_view(), name='token_refresh'),
 ]

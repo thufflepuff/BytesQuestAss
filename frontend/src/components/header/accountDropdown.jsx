@@ -1,34 +1,38 @@
-import React, { useState } from 'react';
+import profileIcon from '../../pictures/profile.png'
+import addIcon from '../../pictures/add.png'
+
+import React, { useState, useEffect } from 'react';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Collapse, Avatar, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-import postIcon from '../../pictures/post.png';
-import messagesIcon from '../../pictures/messages.png';
-import addIcon from '../../pictures/add.png';
-
 import useNavigations from '../navigations';
+import { fetchAccounts } from './listAccounts';
 
-const accounts = [
-    {
-      name: 'Account1',
-      pages: [
-        { name: 'Posts', link: '/Account1/Posts', icon: postIcon },
-        { name: 'Messages', link: '/Account1/Messages', icon: messagesIcon },
-      ],
-    },
-  ];
-  
+
 
 const AccountDropdown = () => {
   const [accountDropdownOpen, setAccountDropdownOpen] = useState({});
+  const [accounts, setAccounts] = useState([]);
   const { navigateToAccounts } = useNavigations();
 
-  const toggleAccountDropdown = (account) => () => {
+  useEffect(() => {
+    const loadAccounts = async () => {
+      try {
+        const accountsData = await fetchAccounts();
+        setAccounts(accountsData);
+      } catch (error) {
+        console.error("Error loading accounts:", error);
+      }
+    };
+    loadAccounts();
+  }, []);
+
+  const toggleAccountDropdown = (accountType) => () => {
     setAccountDropdownOpen((prevState) => ({
       ...prevState,
-      [account]: !prevState[account],
+      [accountType]: !prevState[accountType],
     }));
   };
 
@@ -36,7 +40,7 @@ const AccountDropdown = () => {
     <React.Fragment>
       <ListItemButton onClick={toggleAccountDropdown('Accounts')} sx={{ pl: 4 }}>
         <ListItemIcon>
-          <img src={addIcon} alt="Accounts icon" style={{ width: 24, height: 24 }} />
+          <img src={profileIcon} alt="Accounts icon" style={{ width: 24, height: 24 }} />
         </ListItemIcon>
         <ListItemText primary="Accounts" />
         {accountDropdownOpen['Accounts'] ? <ExpandLess /> : <ExpandMore />}
@@ -44,17 +48,15 @@ const AccountDropdown = () => {
       <Collapse in={accountDropdownOpen['Accounts']} timeout="auto" unmountOnExit>
         <List component="div">
           {accounts.map((account, accountIndex) => (
-            <React.Fragment key={account.name}>
-              <ListItemButton onClick={toggleAccountDropdown(account.name)} sx={{ pl: 4 }}>
+            <React.Fragment key={account.id}>
+              <ListItemButton onClick={toggleAccountDropdown(account.type)} sx={{ pl: 4 }}>
                 <ListItemIcon>
-                  <Avatar sx={{ width: 24, height: 24 }}>
-                    {account.name.charAt(account.name.length - 1)}
-                  </Avatar>
+                  <Avatar sx={{ width: 24, height: 24 }} src={account.icon} />
                 </ListItemIcon>
                 <ListItemText primary={account.name} />
-                {accountDropdownOpen[account.name] ? <ExpandLess /> : <ExpandMore />}
+                {accountDropdownOpen[account.type] ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
-              <Collapse in={accountDropdownOpen[account.name]} timeout="auto" unmountOnExit>
+              <Collapse in={accountDropdownOpen[account.type]} timeout="auto" unmountOnExit>
                 <List component="div">
                   {account.pages.map((page, pageIndex) => (
                     <React.Fragment key={page.name}>

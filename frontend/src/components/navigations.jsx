@@ -18,8 +18,9 @@ const useNavigations = () => {
       navigateToSettings: () => navigate('/Settings'),
 
       navigateToProfile: () => navigate(`/${username}/Profile`),
-      navigateToDashboard: () => navigate(`/${username}/Dashboard`),
       navigateToAccounts: () => navigate(`/${username}/Accounts`),
+      
+      navigateToDashboard: () => navigate(`/${username}/Dashboard`),
 
     };
   }

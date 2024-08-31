@@ -62,7 +62,7 @@ export default function SignIn() {
       //console.log(accessToken,refreshToken);
       localStorage.setItem(ACCESS_TOKEN, accessToken);
       localStorage.setItem(REFRESH_TOKEN, refreshToken);
-      navigateToProfile(Username);
+      navigateToProfile();
     } catch (error) {
       if (error.response) {
         alert(`Error: ${error.response.data.message}`);
@@ -129,7 +129,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={handleSubmit}
+              //onClick={handleSubmit}
             >
               Sign In
             </Button>

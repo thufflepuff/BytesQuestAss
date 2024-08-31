@@ -15,12 +15,12 @@ import reportWebVitals from './reportWebVitals';
 import SignIn from './Screens/signIn';
 import SignUp from './Screens/signUp';
 
-import Dashboard from './Screens/dashboard';
+import Dashboard from './Screens/accountScreens/dashboard';
 import Profile from './Screens/profile';
-import Accounts from './Screens/accounts';
+import Accounts from './Screens/accountScreens/accounts';
 
-import Posts from './Screens/posts';
-import Messages from './Screens/messages';
+import Posts from './Screens/accountScreens/posts';
+import Messages from './Screens/accountScreens/messages';
 
 import Settings from './Screens/settings';
 
@@ -43,11 +43,10 @@ const router = createBrowserRouter(
       <Route path=":username/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path=":username/Accounts" element={<ProtectedRoute><Accounts /></ProtectedRoute>} />      
       <Route path=":username/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      {/*ProtectedRoute*/}
+      <Route path=":username/Posts" element={<Posts />} />
+      <Route path=":username/Messages" element={<Messages />} />
 
-      {/* Other routes */}
-      <Route path="Posts" element={<Posts />} />
-      <Route path="Messages" element={<Messages />} />
+      {/*ProtectedRoute*/}
 
       <Route path="Settings" element={<Settings />} />
       {/* Catch-all route for undefined paths */}
